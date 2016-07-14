@@ -1,0 +1,19 @@
+syntax = "proto2";
+
+package example;
+
+message Thing {
+    optional string name = 1;
+    repeated float value = 2;
+}
+
+message Address {
+    optional string street = 1;
+    optional int32 number = 2;
+}
+
+message Person {
+    optional string name = 1;
+    optional Address address = 2;
+    repeated Thing things = 3;
+}
