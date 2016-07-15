@@ -14,8 +14,7 @@ import re
 
 from google.protobuf import symbol_database
 
-# TODO(nikodem): Reimplement the loader.
-from tensorflow.python.lib.io import tf_record
+import reading
 
 LINE = '-' * 80
 _CURLY = re.compile(r'{([a-zA-Z.]*)}')
@@ -70,10 +69,12 @@ def select_fields(pb, field_names):
 
 
 def load_records(file_path, proto_cls):
-    for raw in tf_record.tf_record_iterator(file_path):
-        pb = proto_cls()
-        pb.ParseFromString(raw)
-        yield pb
+    with open(file_path) as fp:
+        reader = reading.PyRecordReader(fp)
+        for raw in reader.read():
+            pb = proto_cls()
+            pb.ParseFromString(raw)
+            yield pb
 
 
 def query(file_path, proto, root=None, select=None, limit=None):
