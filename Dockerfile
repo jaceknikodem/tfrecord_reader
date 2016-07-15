@@ -16,6 +16,8 @@ RUN echo "deb http://storage.googleapis.com/bazel-apt stable jdk1.8" | sudo tee 
     curl https://storage.googleapis.com/bazel-apt/doc/apt-key.pub.gpg | sudo apt-key add -
 RUN apt-get update && sudo apt-get install -y bazel && sudo apt-get upgrade -y bazel
 
+ENV CODE_BASE=/code
+
 COPY . /src
 WORKDIR /src
 

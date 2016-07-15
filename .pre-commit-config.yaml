@@ -13,3 +13,11 @@
     sha: v0.8.2
     hooks:
     -   id: yapf
+-   repo: local
+    hooks:
+    -   id: bazel_test
+        name: bazel_test
+        entry: bazel test ...
+        language: system
+        always_run: true
+        files: ^$
