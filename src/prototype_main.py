@@ -7,17 +7,16 @@ Usage:
 """
 import sys
 
-# TODO(nikodem): Use gflags here.
-import tensorflow as tf
+import gflags
 
 import prototype
 
-tf.flags.DEFINE_string("root", None, "Path to a file with a proto definition.")
-tf.flags.DEFINE_string("proto", None, "Proto to use.")
-tf.flags.DEFINE_integer("limit", None, "How many records to read.")
-tf.flags.DEFINE_string("select", None, "Which fields to select.")
+gflags.DEFINE_string("root", None, "Path to a file with a proto definition.")
+gflags.DEFINE_string("proto", None, "Proto to use.")
+gflags.DEFINE_integer("limit", None, "How many records to read.")
+gflags.DEFINE_string("select", None, "Which fields to select.")
 
-FLAGS = tf.flags.FLAGS
+FLAGS = gflags.FLAGS
 
 
 def main(argv):
@@ -31,4 +30,8 @@ def main(argv):
 
 
 if __name__ == "__main__":
-    tf.app.run()
+    #gflags.MarkFlagsAsRequired(["proto"])
+    print sys.argv
+    argv = FLAGS(sys.argv)
+    print argv
+    sys.exit(main(argv))

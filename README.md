@@ -14,6 +14,8 @@ docker run -v ${PWD}:/code -w /code -i -t tfreader
 source .bashrc
 ```
 
+* Run all the tests `run_tests`.
+
 ## TODO list a.k.a. feature requests
 
 * Loading a proto definition dynamically.

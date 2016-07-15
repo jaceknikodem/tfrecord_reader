@@ -15,9 +15,9 @@
     -   id: yapf
 -   repo: local
     hooks:
-    -   id: bazel_test
-        name: bazel_test
-        entry: bazel test ...
+    -   id: python_test
+        name: python_test
+        entry: run_tests .
         language: system
         always_run: true
         files: ^$
