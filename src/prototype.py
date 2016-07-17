@@ -16,7 +16,6 @@ from google.protobuf import symbol_database
 
 import reading
 
-LINE = '-' * 80
 _CURLY = re.compile(r'{([a-zA-Z.]*)}')
 
 
@@ -77,14 +76,13 @@ def load_records(file_path, proto_cls):
             yield pb
 
 
-def query(file_path, proto, root=None, select=None, limit=None):
+def query(file_path, proto, root, select=None, limit=None):
     if limit == 0:
         raise ValueError("Limit, if specified, has to be greater than 0.")
 
     if proto is None:
         raise ValueError("PB name has to provided.")
 
-    root = root or os.path.dirname(os.path.realpath(__file__))
     load_protos(root)
     proto_cls = get_prototype(proto)
     field_names = [f.strip() for f in select.split(",")] if select else []
@@ -96,7 +94,6 @@ def query(file_path, proto, root=None, select=None, limit=None):
                                 for k, v in select_fields(pb, field_names))
             else:
                 yield "{}".format(pb)
-            yield LINE
         except (IOError, KeyboardInterrupt):
             pass  # Ignore broken pipe.
         if limit is not None and i >= limit - 1:

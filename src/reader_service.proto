@@ -1,11 +1,17 @@
 syntax = "proto2";
 
 service RecordReader {
-
-    rpc Quit(EmptyRequest) returns (EmptyResponse) {}
-
+    rpc Query(QueryRequest) returns (stream QueryResponse) {}
 }
 
-message EmptyRequest {}
+message QueryRequest {
+    optional string file_path = 1;
+    optional string proto = 2;
+    optional string root = 3;
+    optional string select = 4;
+    optional int32 limit = 5;
+}
 
-message EmptyResponse {}
+message QueryResponse {
+    optional string chunk = 1;
+}
