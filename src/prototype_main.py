@@ -9,6 +9,7 @@ import sys
 
 import gflags
 
+import app
 import prototype
 
 gflags.DEFINE_string("root", None, "Path to a file with a proto definition.")
@@ -30,8 +31,5 @@ def main(argv):
 
 
 if __name__ == "__main__":
-    #gflags.MarkFlagsAsRequired(["proto"])
-    print sys.argv
-    argv = FLAGS(sys.argv)
-    print argv
-    sys.exit(main(argv))
+    gflags.MarkFlagsAsRequired(["proto"])
+    app.run()

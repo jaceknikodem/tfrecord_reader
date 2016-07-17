@@ -13,11 +13,3 @@
     sha: v0.8.2
     hooks:
     -   id: yapf
--   repo: local
-    hooks:
-    -   id: python_test
-        name: python_test
-        entry: run_tests .
-        language: system
-        always_run: true
-        files: ^$

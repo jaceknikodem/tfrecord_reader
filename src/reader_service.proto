@@ -1,0 +1,11 @@
+syntax = "proto2";
+
+service RecordReader {
+
+    rpc Quit(EmptyRequest) returns (EmptyResponse) {}
+
+}
+
+message EmptyRequest {}
+
+message EmptyResponse {}
