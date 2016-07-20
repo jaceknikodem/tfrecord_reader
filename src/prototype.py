@@ -35,6 +35,10 @@ def load_protos(root):
             print 'Issue loading {} module from: {}'.format(name, filename)
 
 
+def proto_names():
+    return symbol_database.Default().pool._descriptors.iterkeys()
+
+
 def get_prototype(name):
     db = symbol_database.Default()
     try:
@@ -76,10 +80,7 @@ def load_records(file_path, proto_cls):
             yield pb
 
 
-def query(file_path, proto, root, select=None, limit=None):
-    if limit == 0:
-        raise ValueError("Limit, if specified, has to be greater than 0.")
-
+def query(file_path, proto, root, select=None, limit=-1):
     if proto is None:
         raise ValueError("PB name has to provided.")
 
@@ -96,5 +97,5 @@ def query(file_path, proto, root, select=None, limit=None):
                 yield "{}".format(pb)
         except (IOError, KeyboardInterrupt):
             pass  # Ignore broken pipe.
-        if limit is not None and i >= limit - 1:
+        if limit > 0 and i >= limit - 1:
             return

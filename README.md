@@ -18,12 +18,13 @@ source .bashrc
 
 ## TODO list a.k.a. feature requests
 
-* Loading a proto definition dynamically.
-* Scan the whole project and keep a global DB of protos.
+* <s>Loading a proto definition dynamically</s>.
+* <s>Scan the whole project and keep a global DB of protos</s>.
+* Realoading the proto DB.
 * Tab-completion.
-* Selecting sub-fields.
+* <s>Selecting sub-fields</s>.
 * Value filtering.
-* Add limit.
+* <s>Add limit</s>.
 * Add key and size options.
 * Add options to write data back to a file.
 * Colorful output.

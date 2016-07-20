@@ -16,4 +16,3 @@ generate_grpc () {
     python -m grpc.tools.protoc --proto_path=. --python_out=. --grpc_python_out=. *.proto
 }
 
-alias tfreader="python /code/src/prototype_main.py"

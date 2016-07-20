@@ -1,12 +1,13 @@
 import os
+import subprocess
+import time
 import unittest
 
 from grpc.framework.interfaces.face import face
 
 import reader_client
 
-# TODO(nikodem): Find a proper way to pass code base folder with Bazel.
-CODE_BASE = os.environ.get("CODE_BASE") or "/code"
+CODE_BASE = os.environ.get("CODE_BASE")
 
 _FIRST_ITEM = """name: "Patrick"
 address {
@@ -23,96 +24,88 @@ things {
 }
 """
 
+_SRC_ROOT = os.path.join(CODE_BASE, "src")
+_ROOT = os.path.join(_SRC_ROOT, "example")
+_FILE_PATH = os.path.join(_SRC_ROOT, "example", "foo.tfr")
+_PROTO = "example.Person"
+_PORT = 8004
+
 
 class QueryTest(unittest.TestCase):
-    def setUp(self):
-        self._root = CODE_BASE
-        self._file_path = os.path.join(CODE_BASE, "src", "example", "foo.tfr")
-        self._proto = "example.Person"
+    @classmethod
+    def setUpClass(cls):
+        cls.server = subprocess.Popen(["python", os.path.join(
+            _SRC_ROOT, "reader_server_main.py"), "--port={}".format(_PORT)])
+        time.sleep(1)
+        cls.client = reader_client.ReaderClient("localhost", _PORT)
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.server.terminate()
 
     def test_proto_not_provided(self):
         with self.assertRaises(face.RemoteError):
-            list(reader_client.query(self._file_path, None, self._root))
+            list(self.client.query(_FILE_PATH, None, _ROOT))
 
     def test_proto_not_found(self):
         with self.assertRaisesRegexp(face.RemoteError, "mean example.Person"):
-            list(reader_client.query(self._file_path, "example.FakeProto",
-                                     self._root))
+            list(self.client.query(_FILE_PATH, "example.FakeProto", _ROOT))
 
     def test_root_not_found(self):
         with self.assertRaisesRegexp(face.RemoteError, "doesn't exist"):
-            list(reader_client.query(self._file_path, self._proto,
-                                     "/fake_root"))
+            list(self.client.query(_FILE_PATH, _PROTO, "/fake_root"))
 
     def test_data_file_not_found(self):
         with self.assertRaises(face.RemoteError):
-            list(reader_client.query("/fake_path", self._proto, self._root))
+            list(self.client.query("/fake_path", _PROTO, _ROOT))
 
     def test_query_all(self):
-        output = list(reader_client.query(self._file_path, self._proto,
-                                          self._root))
+        output = list(self.client.query(_FILE_PATH, _PROTO, _ROOT))
         self.assertEqual(len(output), 100)
 
     def test_limit_one(self):
-        output = list(reader_client.query(
-            self._file_path, self._proto,
-            self._root, limit=1))
+        output = list(self.client.query(_FILE_PATH, _PROTO, _ROOT, limit=1))
         self.assertEqual(len(output), 1)
 
-    def test_limit_zero(self):
-        with self.assertRaises(ValueError):
-            list(reader_client.query(self._file_path,
-                                     self._proto,
-                                     self._root,
-                                     limit=0))
-
     def test_select_fields(self):
-        output = list(reader_client.query(
-            self._file_path, self._proto,
-            self._root, limit=1))
+        output = list(self.client.query(_FILE_PATH, _PROTO, _ROOT, limit=1))
         self.assertItemsEqual(output, [_FIRST_ITEM])
 
     def test_select_empty_fields(self):
-        output = list(reader_client.query(self._file_path,
-                                          self._proto,
-                                          self._root,
-                                          limit=1,
-                                          select=""))
+        output = list(self.client.query(
+            _FILE_PATH, _PROTO, _ROOT,
+            limit=1, select=""))
         self.assertItemsEqual(output, [_FIRST_ITEM])
 
     def test_select_top_level_single_field(self):
-        output = list(reader_client.query(self._file_path,
-                                          self._proto,
-                                          self._root,
-                                          limit=1,
-                                          select="name"))
+        output = list(self.client.query(
+            _FILE_PATH, _PROTO,
+            _ROOT, limit=1, select="name"))
         self.assertItemsEqual(output, ["name:\tPatrick"])
 
     def test_select_top_level_complex_field(self):
-        output = list(reader_client.query(self._file_path,
-                                          self._proto,
-                                          self._root,
-                                          limit=1,
-                                          select="address"))
+        output = list(self.client.query(
+            _FILE_PATH, _PROTO,
+            _ROOT, limit=1,
+            select="address"))
         self.assertItemsEqual(output,
                               ['address:\tstreet: "Tavistock"\nnumber: 47\n'])
 
     def test_select_two_top_level_fields(self):
-        output = list(reader_client.query(self._file_path,
-                                          self._proto,
-                                          self._root,
-                                          limit=1,
-                                          select="name, address"))
+        output = list(self.client.query(
+            _FILE_PATH,
+            _PROTO, _ROOT,
+            limit=1, select="name, address"))
         self.assertItemsEqual(
             output,
             ['name:\tPatrick\naddress:\tstreet: "Tavistock"\nnumber: 47\n'])
 
     def test_select_subfield(self):
-        output = list(reader_client.query(self._file_path,
-                                          self._proto,
-                                          self._root,
-                                          limit=1,
-                                          select="address.number"))
+        output = list(self.client.query(_FILE_PATH,
+                                        _PROTO,
+                                        _ROOT,
+                                        limit=1,
+                                        select="address.number"))
         self.assertItemsEqual(output, ['address.number:\t47'])
 
 

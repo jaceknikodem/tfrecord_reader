@@ -1,63 +1,54 @@
-import sys
-
-import gflags
 from grpc.beta import implementations
+import retrying
 
-import app
 import reader_service_pb2
 
-# Server flags
-gflags.DEFINE_string("host", "localhost", "Server host.")
-gflags.DEFINE_integer("port", 8888, "Server port.")
-gflags.DEFINE_integer("timeout", 5, "Timeout in seconds.")
 
-# Query flags
-gflags.DEFINE_string("root", None, "Path to a file with a proto definition.")
-gflags.DEFINE_string("proto", None, "Proto to use.")
-gflags.DEFINE_integer("limit", None, "How many records to read.")
-gflags.DEFINE_string("select", None, "Which fields to select.")
-
-FLAGS = gflags.FLAGS
-
-
-def create_request(**kwargs):
-    request = reader_service_pb2.QueryRequest()
+def _create_request(cls, **kwargs):
+    request = cls()
     for k, v in kwargs.iteritems():
         if v is not None:
             setattr(request, k, v)
     return request
 
 
-def query(file_path,
-          proto,
-          root=None,
-          select=None,
-          limit=None,
-          host='localhost',
-          port=8888,
-          timeout=5):
-    channel = implementations.insecure_channel(host, port)
-    stub = reader_service_pb2.beta_create_RecordReader_stub(channel)
+class ReaderClient(object):
+    def __init__(self, host, port, timeout=5, reconnect=5):
+        self._port = port
+        self._host = host
+        self._timeout = timeout
 
-    request = create_request(file_path=file_path,
-                             proto=proto,
-                             root=root,
-                             select=select,
-                             limit=limit)
-    for response in stub.Query(request, timeout):
-        yield response.chunk
+        # connect = retrying.retry(self._connect,
+        #                          stop_max_attempt_number=reconnect) if reconnect else self._connect
+        self._stub = self._connect()
 
+    def _connect(self):
+        channel = implementations.insecure_channel(self._host, self._port)
+        return reader_service_pb2.beta_create_RecordReader_stub(channel)
 
-def main(argv):
-    if len(argv) == 1:
-        print "Missing input path"
-        sys.exit(1)
+    def complete(self, words, current, timeout=None):
+        timeout = timeout or self._timeout
 
-    for chunk in query(argv[1], FLAGS.proto, FLAGS.root, FLAGS.select,
-                       FLAGS.limit, FLAGS.host, FLAGS.port, FLAGS.timeout):
-        print chunk
+        request = reader_service_pb2.CompletionRequest()
+        request.words.extend(words)
+        request.current = current
+        response = self._stub.Complete(request, timeout)
+        return list(response.options)
 
+    def query(self,
+              file_path,
+              proto,
+              root=None,
+              select=None,
+              limit=None,
+              timeout=5):
+        timeout = timeout or self._timeout
 
-if __name__ == "__main__":
-    gflags.MarkFlagsAsRequired(["proto"])
-    app.run()
+        request = _create_request(reader_service_pb2.QueryRequest,
+                                  file_path=file_path,
+                                  proto=proto,
+                                  root=root,
+                                  select=select,
+                                  limit=limit)
+        for response in self._stub.Query(request, timeout):
+            yield response.chunk

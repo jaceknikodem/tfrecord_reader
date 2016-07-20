@@ -2,6 +2,8 @@ syntax = "proto2";
 
 service RecordReader {
     rpc Query(QueryRequest) returns (stream QueryResponse) {}
+
+    rpc ProtoNames(CompletionRequest) returns (CompletionResponse) {}
 }
 
 message QueryRequest {
@@ -9,9 +11,17 @@ message QueryRequest {
     optional string proto = 2;
     optional string root = 3;
     optional string select = 4;
-    optional int32 limit = 5;
+    optional int32 limit = 5 [default = -1];
 }
 
 message QueryResponse {
     optional string chunk = 1;
+}
+
+message CompletionRequest {
+    optional string prefix = 1;
+}
+
+message CompletionResponse {
+    repeated string proto_names = 1;
 }
