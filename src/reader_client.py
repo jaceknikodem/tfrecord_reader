@@ -52,3 +52,20 @@ class ReaderClient(object):
                                   limit=limit)
         for response in self._stub.Query(request, timeout):
             yield response.chunk
+
+    def query_and_save(self,
+                       file_path,
+                       output_path,
+                       proto,
+                       root=None,
+                       limit=None,
+                       timeout=5):
+        timeout = timeout or self._timeout
+
+        request = _create_request(reader_service_pb2.WriteRequest,
+                                  file_path=file_path,
+                                  output_path=output_path,
+                                  proto=proto,
+                                  root=root,
+                                  limit=limit)
+        self._stub.Write(request, timeout)

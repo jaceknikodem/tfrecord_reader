@@ -105,3 +105,42 @@ def query(file_path, proto, root, select=None, limit=-1):
             pass  # Ignore broken pipe.
         if limit > 0 and i >= limit - 1:
             return
+
+
+def query(file_path, proto, root, select=None, limit=-1):
+    if proto is None:
+        raise ValueError("PB name has to provided.")
+
+    load_protos(root)
+    proto_cls = get_prototype(proto)
+    field_names = [f.strip() for f in select.split(",")] if select else []
+
+    for i, pb in enumerate(load_records(file_path, proto_cls)):
+        try:
+            if field_names:
+                yield "\n".join("{}:\t{}".format(k, v)
+                                for k, v in select_fields(pb, field_names))
+            else:
+                yield "{}".format(pb)
+        except (IOError, KeyboardInterrupt):
+            pass  # Ignore broken pipe.
+        if limit > 0 and i >= limit - 1:
+            return
+
+
+def query_and_save(file_path, output_path, proto, root, limit=-1):
+    if proto is None:
+        raise ValueError("PB name has to provided.")
+
+    load_protos(root)
+    proto_cls = get_prototype(proto)
+
+    with open(output_path, "w") as fp:
+        for i, pb in enumerate(load_records(file_path, proto_cls)):
+            try:
+                fp.write("{}".format(pb))
+            except (IOError, KeyboardInterrupt):
+                pass  # Ignore broken pipe.
+            if limit > 0 and i >= limit - 1:
+                return
+            fp.write("\n")

@@ -3,6 +3,8 @@ syntax = "proto2";
 service RecordReader {
     rpc Query(QueryRequest) returns (stream QueryResponse) {}
 
+    rpc Write(WriteRequest) returns (WriteResponse) {}
+
     rpc ProtoNames(CompletionRequest) returns (CompletionResponse) {}
 }
 
@@ -19,6 +21,20 @@ message QueryRequest {
 message QueryResponse {
     optional string chunk = 1;
 }
+
+message WriteRequest {
+    // A file path of a glob pattern for multiple files.
+    optional string file_path = 1;
+
+    // Output file path.
+    optional string output_path = 2;
+
+    optional string proto = 3;
+    optional string root = 4;
+    optional int32 limit = 5 [default = -1];
+}
+
+message WriteResponse {}
 
 message CompletionRequest {
     optional string prefix = 1;

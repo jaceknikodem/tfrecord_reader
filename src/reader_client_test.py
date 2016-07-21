@@ -26,7 +26,7 @@ things {
 
 _SRC_ROOT = os.path.join(CODE_BASE, "src")
 _ROOT = os.path.join(_SRC_ROOT, "example")
-_FILE_PATH = os.path.join(_SRC_ROOT, "example", "*.tfr")
+_FILE_PATH = os.path.join(_ROOT, "*.tfr")
 _PROTO = "example.Person"
 _PORT = 8004
 
@@ -42,6 +42,18 @@ class QueryTest(unittest.TestCase):
     @classmethod
     def tearDownClass(cls):
         cls.server.terminate()
+
+    def assertExists(self, filepath):
+        self.assertTrue(
+            os.path.exists(filepath),
+            "Filepath {} doesn't exists.".format(filepath))
+
+    def test_query_and_save(self):
+        output_path = os.path.join(_ROOT, "foo.txt")
+        self.client.query_and_save(
+            _FILE_PATH, output_path,
+            _PROTO, _ROOT, limit=1)
+        self.assertExists(output_path)
 
     def test_proto_not_provided(self):
         with self.assertRaises(face.RemoteError):

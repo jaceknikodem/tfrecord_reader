@@ -15,6 +15,8 @@ gflags.DEFINE_string("root", None, "Path to a file with a proto definition.")
 gflags.DEFINE_string("proto", None, "Proto to use.")
 gflags.DEFINE_integer("limit", None, "How many records to read.")
 gflags.DEFINE_string("select", None, "Which fields to select.")
+gflags.DEFINE_string("output_file", None,
+                     "Path to the output file to generate.")
 
 FLAGS = gflags.FLAGS
 
@@ -24,10 +26,17 @@ def main(argv):
         print "Missing input path"
         sys.exit(1)
 
-    client = reader_client.ReaderClient(FLAGS.host, FLAGS.port)
+    file_path = argv[1]
 
-    for chunk in client.query(argv[1], FLAGS.proto, FLAGS.root, FLAGS.select,
-                              FLAGS.limit, FLAGS.timeout):
+    client = reader_client.ReaderClient(FLAGS.host, FLAGS.port, FLAGS.timeout)
+
+    if FLAGS.output_file:
+        client.query_and_save(file_path, FLAGS.output_file, FLAGS.root,
+                              FLAGS.limit)
+        return
+
+    for chunk in client.query(file_path, FLAGS.proto, FLAGS.root, FLAGS.select,
+                              FLAGS.limit):
         print chunk
 
 
