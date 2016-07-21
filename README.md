@@ -20,13 +20,13 @@ source .bashrc
 
 * <s>Loading a proto definition dynamically</s>.
 * <s>Scan the whole project and keep a global DB of protos</s>.
-* Realoading the proto DB.
+* Reloading the proto DB.
 * Tab-completion.
 * <s>Selecting sub-fields</s>.
 * Value filtering.
 * <s>Add limit</s>.
-* Add key and size options.
-* Add options to write data back to a file.
+* Add <s>key</s> and size options.
+* Add options to write data back to a file (<s>text format</s>, proto).
 * Colorful output.
 * <s>Globbing support</s>.
 * <s>Support for archives</s>.

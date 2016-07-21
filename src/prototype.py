@@ -19,6 +19,7 @@ from google.protobuf import symbol_database
 import reading
 
 NO_LIMIT = -1
+_KEY = "key_"
 _CURLY = re.compile(r'{([a-zA-Z.]*)}')
 
 
@@ -58,16 +59,20 @@ def get_prototype(name):
         return db.GetPrototype(descriptor)
 
 
-def select_fields(pb, field_names):
+def select_fields(pb, field_names, index):
     values = []
     for field_name in field_names:
         value = pb
-        for subfield in field_name.split('.'):
-            if not hasattr(value, subfield):
-                raise ValueError(
-                    "Field: {} not present. Available fields: {}".format(
-                        field_name, pb.DESCRIPTOR.fields_by_name.keys()))
-            value = getattr(value, subfield)
+        if field_name == _KEY:
+            value = index
+        else:
+            for subfield in field_name.split('.'):
+                if not hasattr(value, subfield):
+                    raise ValueError(
+                        "Field: {} not present. Available fields: {}".format(
+                            field_name, pb.DESCRIPTOR.fields_by_name.keys()))
+                value = getattr(value, subfield)
+
         values.append((field_name, value))
     return values
 
@@ -82,10 +87,9 @@ def load_records(file_pattern, proto_cls):
         raise ValueError("No files matching: {}. Present files: {}".format(
             file_pattern, names))
 
-    for file_path in file_paths:
-        file_obj = gzip.open(
-            file_path, "rb") if file_path.endswith(".gz") else open(file_path,
-                                                                    "r")
+    for path in file_paths:
+        file_obj = gzip.open(path, "rb") if path.endswith(".gz") else open(
+            path, "r")
         with file_obj as fp:
             reader = reading.PyRecordReader(fp)
             for raw in reader.read():
@@ -105,7 +109,7 @@ def query(file_path, proto, select=None, limit=NO_LIMIT):
         try:
             if field_names:
                 yield "\n".join("{}:\t{}".format(k, v)
-                                for k, v in select_fields(pb, field_names))
+                                for k, v in select_fields(pb, field_names, i))
             else:
                 yield "{}".format(pb)
         except (IOError, KeyboardInterrupt):

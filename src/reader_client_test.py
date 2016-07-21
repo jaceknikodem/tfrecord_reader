@@ -89,6 +89,12 @@ class QueryTest(unittest.TestCase):
             _FILE_PATH, _PROTO, limit=1, select=""))
         self.assertItemsEqual(output, [_FIRST_ITEM])
 
+    def test_select_key(self):
+        output = list(self.client.query(
+            _FILE_PATH, _PROTO, limit=1,
+            select="key_"))
+        self.assertItemsEqual(output, ["key_:\t0"])
+
     def test_select_top_level_single_field(self):
         output = list(self.client.query(
             _FILE_PATH, _PROTO, limit=1,
