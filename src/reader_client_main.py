@@ -11,7 +11,6 @@ gflags.DEFINE_integer("port", 8888, "Server port.")
 gflags.DEFINE_integer("timeout", 5, "Timeout in seconds.")
 
 # Query flags
-gflags.DEFINE_string("root", None, "Path to a file with a proto definition.")
 gflags.DEFINE_string("proto", None, "Proto to use.")
 gflags.DEFINE_integer("limit", None, "How many records to read.")
 gflags.DEFINE_string("select", None, "Which fields to select.")
@@ -31,11 +30,10 @@ def main(argv):
     client = reader_client.ReaderClient(FLAGS.host, FLAGS.port, FLAGS.timeout)
 
     if FLAGS.output_file:
-        client.query_and_save(file_path, FLAGS.output_file, FLAGS.root,
-                              FLAGS.limit)
+        client.query_and_save(file_path, FLAGS.output_file, FLAGS.limit)
         return
 
-    for chunk in client.query(file_path, FLAGS.proto, FLAGS.root, FLAGS.select,
+    for chunk in client.query(file_path, FLAGS.proto, FLAGS.select,
                               FLAGS.limit):
         print chunk
 

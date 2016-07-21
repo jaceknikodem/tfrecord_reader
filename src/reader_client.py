@@ -1,5 +1,4 @@
 from grpc.beta import implementations
-import retrying
 
 import reader_service_pb2
 
@@ -18,8 +17,6 @@ class ReaderClient(object):
         self._host = host
         self._timeout = timeout
 
-        # connect = retrying.retry(self._connect,
-        #                          stop_max_attempt_number=reconnect) if reconnect else self._connect
         self._stub = self._connect()
 
     def _connect(self):
@@ -35,37 +32,27 @@ class ReaderClient(object):
         response = self._stub.Complete(request, timeout)
         return list(response.options)
 
-    def query(self,
-              file_path,
-              proto,
-              root=None,
-              select=None,
-              limit=None,
-              timeout=5):
+    def query(self, file_path, proto, select=None, limit=None, timeout=5):
         timeout = timeout or self._timeout
 
         request = _create_request(reader_service_pb2.QueryRequest,
                                   file_path=file_path,
                                   proto=proto,
-                                  root=root,
                                   select=select,
                                   limit=limit)
         for response in self._stub.Query(request, timeout):
             yield response.chunk
 
-    def query_and_save(self,
-                       file_path,
-                       output_path,
-                       proto,
-                       root=None,
-                       limit=None,
-                       timeout=5):
+    def query_and_save(
+            self, file_path,
+            output_path,
+            proto, limit=None,
+            timeout=5):
         timeout = timeout or self._timeout
 
         request = _create_request(reader_service_pb2.WriteRequest,
                                   file_path=file_path,
                                   output_path=output_path,
                                   proto=proto,
-                                  root=root,
                                   limit=limit)
         self._stub.Write(request, timeout)

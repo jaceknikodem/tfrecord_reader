@@ -18,7 +18,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
     package='',
     syntax='proto2',
     serialized_pb=_b(
-        '\n\x14reader_service.proto\"a\n\x0cQueryRequest\x12\x11\n\tfile_path\x18\x01 \x01(\t\x12\r\n\x05proto\x18\x02 \x01(\t\x12\x0c\n\x04root\x18\x03 \x01(\t\x12\x0e\n\x06select\x18\x04 \x01(\t\x12\x11\n\x05limit\x18\x05 \x01(\x05:\x02-1\"\x1e\n\rQueryResponse\x12\r\n\x05\x63hunk\x18\x01 \x01(\t\"f\n\x0cWriteRequest\x12\x11\n\tfile_path\x18\x01 \x01(\t\x12\x13\n\x0boutput_path\x18\x02 \x01(\t\x12\r\n\x05proto\x18\x03 \x01(\t\x12\x0c\n\x04root\x18\x04 \x01(\t\x12\x11\n\x05limit\x18\x05 \x01(\x05:\x02-1\"\x0f\n\rWriteResponse\"#\n\x11\x43ompletionRequest\x12\x0e\n\x06prefix\x18\x01 \x01(\t\")\n\x12\x43ompletionResponse\x12\x13\n\x0bproto_names\x18\x01 \x03(\t2\x9d\x01\n\x0cRecordReader\x12*\n\x05Query\x12\r.QueryRequest\x1a\x0e.QueryResponse\"\x00\x30\x01\x12(\n\x05Write\x12\r.WriteRequest\x1a\x0e.WriteResponse\"\x00\x12\x37\n\nProtoNames\x12\x12.CompletionRequest\x1a\x13.CompletionResponse\"\x00'))
+        '\n\x14reader_service.proto\"S\n\x0cQueryRequest\x12\x11\n\tfile_path\x18\x01 \x01(\t\x12\r\n\x05proto\x18\x02 \x01(\t\x12\x0e\n\x06select\x18\x04 \x01(\t\x12\x11\n\x05limit\x18\x05 \x01(\x05:\x02-1\"\x1e\n\rQueryResponse\x12\r\n\x05\x63hunk\x18\x01 \x01(\t\"X\n\x0cWriteRequest\x12\x11\n\tfile_path\x18\x01 \x01(\t\x12\x13\n\x0boutput_path\x18\x02 \x01(\t\x12\r\n\x05proto\x18\x03 \x01(\t\x12\x11\n\x05limit\x18\x05 \x01(\x05:\x02-1\"\x0f\n\rWriteResponse\"#\n\x11\x43ompletionRequest\x12\x0e\n\x06prefix\x18\x01 \x01(\t\")\n\x12\x43ompletionResponse\x12\x13\n\x0bproto_names\x18\x01 \x03(\t2\x9d\x01\n\x0cRecordReader\x12*\n\x05Query\x12\r.QueryRequest\x1a\x0e.QueryResponse\"\x00\x30\x01\x12(\n\x05Write\x12\r.WriteRequest\x1a\x0e.WriteResponse\"\x00\x12\x37\n\nProtoNames\x12\x12.CompletionRequest\x1a\x13.CompletionResponse\"\x00'))
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 
@@ -46,21 +46,14 @@ _QUERYREQUEST = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='root', full_name='QueryRequest.root', index=2,
-      number=3, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None),
-    _descriptor.FieldDescriptor(
-      name='select', full_name='QueryRequest.select', index=3,
+      name='select', full_name='QueryRequest.select', index=2,
       number=4, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='limit', full_name='QueryRequest.limit', index=4,
+      name='limit', full_name='QueryRequest.limit', index=3,
       number=5, type=5, cpp_type=1, label=1,
       has_default_value=True, default_value=-1,
       message_type=None, enum_type=None, containing_type=None,
@@ -79,7 +72,7 @@ _QUERYREQUEST = _descriptor.Descriptor(
     oneofs=[
     ],
     serialized_start=24,
-    serialized_end=121,
+    serialized_end=107,
 )
 
 
@@ -109,8 +102,8 @@ _QUERYRESPONSE = _descriptor.Descriptor(
     extension_ranges=[],
     oneofs=[
     ],
-    serialized_start=123,
-    serialized_end=153,
+    serialized_start=109,
+    serialized_end=139,
 )
 
 
@@ -143,14 +136,7 @@ _WRITEREQUEST = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='root', full_name='WriteRequest.root', index=3,
-      number=4, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None),
-    _descriptor.FieldDescriptor(
-      name='limit', full_name='WriteRequest.limit', index=4,
+      name='limit', full_name='WriteRequest.limit', index=3,
       number=5, type=5, cpp_type=1, label=1,
       has_default_value=True, default_value=-1,
       message_type=None, enum_type=None, containing_type=None,
@@ -168,8 +154,8 @@ _WRITEREQUEST = _descriptor.Descriptor(
     extension_ranges=[],
     oneofs=[
     ],
-    serialized_start=155,
-    serialized_end=257,
+    serialized_start=141,
+    serialized_end=229,
 )
 
 
@@ -192,8 +178,8 @@ _WRITERESPONSE = _descriptor.Descriptor(
     extension_ranges=[],
     oneofs=[
     ],
-    serialized_start=259,
-    serialized_end=274,
+    serialized_start=231,
+    serialized_end=246,
 )
 
 
@@ -223,8 +209,8 @@ _COMPLETIONREQUEST = _descriptor.Descriptor(
     extension_ranges=[],
     oneofs=[
     ],
-    serialized_start=276,
-    serialized_end=311,
+    serialized_start=248,
+    serialized_end=283,
 )
 
 
@@ -254,8 +240,8 @@ _COMPLETIONRESPONSE = _descriptor.Descriptor(
     extension_ranges=[],
     oneofs=[
     ],
-    serialized_start=313,
-    serialized_end=354,
+    serialized_start=285,
+    serialized_end=326,
 )
 
 DESCRIPTOR.message_types_by_name['QueryRequest'] = _QUERYREQUEST
