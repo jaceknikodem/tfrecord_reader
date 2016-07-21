@@ -29,3 +29,4 @@ source .bashrc
 * Add options to write data back to a file.
 * Colorful output.
 * <s>Globbing support</s>.
+* <s>Support for archives</s>.

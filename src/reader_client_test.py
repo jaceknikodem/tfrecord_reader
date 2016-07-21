@@ -74,6 +74,12 @@ class QueryTest(unittest.TestCase):
         output = list(self.client.query(_FILE_PATH, _PROTO, limit=1))
         self.assertEqual(len(output), 1)
 
+    def test_load_from_archive(self):
+        output = list(self.client.query(
+            os.path.join(_ROOT, "foo.tfr.gz"),
+            _PROTO, limit=1))
+        self.assertEqual(len(output), 1)
+
     def test_select_fields(self):
         output = list(self.client.query(_FILE_PATH, _PROTO, limit=1))
         self.assertItemsEqual(output, [_FIRST_ITEM])

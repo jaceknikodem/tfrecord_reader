@@ -9,6 +9,7 @@ Usage:
 import difflib
 import fnmatch
 import glob
+import gzip
 import imp
 import os
 import re
@@ -46,9 +47,7 @@ def get_prototype(name):
     try:
         descriptor = db.pool.FindMessageTypeByName(name)
     except KeyError:
-        closest = difflib.get_close_matches(name,
-                                            db.pool._descriptors.keys(),
-                                            n=1)
+        closest = difflib.get_close_matches(name, proto_names(), n=1)
         if closest:
             msg = "Proto {} not found. Did you mean {}?".format(name,
                                                                 closest[0])
@@ -76,10 +75,18 @@ def select_fields(pb, field_names):
 def load_records(file_pattern, proto_cls):
     file_paths = glob.glob(file_pattern)
     if not file_paths:
-        raise ValueError("No files matching: {}".format(file_pattern))
+        try:
+            names = os.listdir(os.path.basename(file_pattern))
+        except IOError:
+            names = []
+        raise ValueError("No files matching: {}. Present files: {}".format(
+            file_pattern, names))
 
     for file_path in file_paths:
-        with open(file_path) as fp:
+        file_obj = gzip.open(
+            file_path, "rb") if file_path.endswith(".gz") else open(file_path,
+                                                                    "r")
+        with file_obj as fp:
             reader = reading.PyRecordReader(fp)
             for raw in reader.read():
                 pb = proto_cls()
