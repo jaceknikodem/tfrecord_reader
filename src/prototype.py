@@ -17,6 +17,7 @@ from google.protobuf import symbol_database
 
 import reading
 
+NO_LIMIT = -1
 _CURLY = re.compile(r'{([a-zA-Z.]*)}')
 
 
@@ -86,7 +87,7 @@ def load_records(file_pattern, proto_cls):
                 yield pb
 
 
-def query(file_path, proto, select=None, limit=-1):
+def query(file_path, proto, select=None, limit=NO_LIMIT):
     if proto is None:
         raise ValueError("PB name has to provided.")
 
@@ -106,7 +107,7 @@ def query(file_path, proto, select=None, limit=-1):
             return
 
 
-def query_and_save(file_path, output_path, proto, limit=-1):
+def query_and_save(file_path, output_path, proto, limit=NO_LIMIT):
     if proto is None:
         raise ValueError("PB name has to provided.")
 
