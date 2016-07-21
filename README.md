@@ -28,3 +28,4 @@ source .bashrc
 * Add key and size options.
 * Add options to write data back to a file.
 * Colorful output.
+* <s>Globbing support</s>.

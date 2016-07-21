@@ -8,6 +8,7 @@ Usage:
 """
 import difflib
 import fnmatch
+import glob
 import imp
 import os
 import re
@@ -71,13 +72,18 @@ def select_fields(pb, field_names):
     return values
 
 
-def load_records(file_path, proto_cls):
-    with open(file_path) as fp:
-        reader = reading.PyRecordReader(fp)
-        for raw in reader.read():
-            pb = proto_cls()
-            pb.ParseFromString(raw)
-            yield pb
+def load_records(file_pattern, proto_cls):
+    file_paths = glob.glob(file_pattern)
+    if not file_paths:
+        raise ValueError("No files matching: {}".format(file_pattern))
+
+    for file_path in file_paths:
+        with open(file_path) as fp:
+            reader = reading.PyRecordReader(fp)
+            for raw in reader.read():
+                pb = proto_cls()
+                pb.ParseFromString(raw)
+                yield pb
 
 
 def query(file_path, proto, root, select=None, limit=-1):

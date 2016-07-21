@@ -2,7 +2,8 @@
 # source: reader_service.proto
 
 import sys
-_b=sys.version_info[0]<3 and (lambda x:x) or (lambda x:x.encode('latin1'))
+_b = sys.version_info[0] < 3 and (lambda x: x) or (
+    lambda x: x.encode('latin1'))
 from google.protobuf import descriptor as _descriptor
 from google.protobuf import message as _message
 from google.protobuf import reflection as _reflection
@@ -12,27 +13,24 @@ from google.protobuf import descriptor_pb2
 
 _sym_db = _symbol_database.Default()
 
-
-
-
 DESCRIPTOR = _descriptor.FileDescriptor(
-  name='reader_service.proto',
-  package='',
-  syntax='proto2',
-  serialized_pb=_b('\n\x14reader_service.proto\"a\n\x0cQueryRequest\x12\x11\n\tfile_path\x18\x01 \x01(\t\x12\r\n\x05proto\x18\x02 \x01(\t\x12\x0c\n\x04root\x18\x03 \x01(\t\x12\x0e\n\x06select\x18\x04 \x01(\t\x12\x11\n\x05limit\x18\x05 \x01(\x05:\x02-1\"\x1e\n\rQueryResponse\x12\r\n\x05\x63hunk\x18\x01 \x01(\t\"#\n\x11\x43ompletionRequest\x12\x0e\n\x06prefix\x18\x01 \x01(\t\")\n\x12\x43ompletionResponse\x12\x13\n\x0bproto_names\x18\x01 \x03(\t2s\n\x0cRecordReader\x12*\n\x05Query\x12\r.QueryRequest\x1a\x0e.QueryResponse\"\x00\x30\x01\x12\x37\n\nProtoNames\x12\x12.CompletionRequest\x1a\x13.CompletionResponse\"\x00')
-)
+    name='reader_service.proto',
+    package='',
+    syntax='proto2',
+    serialized_pb=_b(
+        '\n\x14reader_service.proto\"a\n\x0cQueryRequest\x12\x11\n\tfile_path\x18\x01 \x01(\t\x12\r\n\x05proto\x18\x02 \x01(\t\x12\x0c\n\x04root\x18\x03 \x01(\t\x12\x0e\n\x06select\x18\x04 \x01(\t\x12\x11\n\x05limit\x18\x05 \x01(\x05:\x02-1\"\x1e\n\rQueryResponse\x12\r\n\x05\x63hunk\x18\x01 \x01(\t\"#\n\x11\x43ompletionRequest\x12\x0e\n\x06prefix\x18\x01 \x01(\t\")\n\x12\x43ompletionResponse\x12\x13\n\x0bproto_names\x18\x01 \x03(\t2s\n\x0cRecordReader\x12*\n\x05Query\x12\r.QueryRequest\x1a\x0e.QueryResponse\"\x00\x30\x01\x12\x37\n\nProtoNames\x12\x12.CompletionRequest\x1a\x13.CompletionResponse\"\x00'))
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 
 
 
 _QUERYREQUEST = _descriptor.Descriptor(
-  name='QueryRequest',
-  full_name='QueryRequest',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
+    name='QueryRequest',
+    full_name='QueryRequest',
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    fields=[
     _descriptor.FieldDescriptor(
       name='file_path', full_name='QueryRequest.file_path', index=0,
       number=1, type=9, cpp_type=9, label=1,
@@ -68,30 +66,30 @@ _QUERYREQUEST = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto2',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=24,
-  serialized_end=121,
+    ],
+    extensions=[
+    ],
+    nested_types=[],
+    enum_types=[
+    ],
+    options=None,
+    is_extendable=False,
+    syntax='proto2',
+    extension_ranges=[],
+    oneofs=[
+    ],
+    serialized_start=24,
+    serialized_end=121,
 )
 
 
 _QUERYRESPONSE = _descriptor.Descriptor(
-  name='QueryResponse',
-  full_name='QueryResponse',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
+    name='QueryResponse',
+    full_name='QueryResponse',
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    fields=[
     _descriptor.FieldDescriptor(
       name='chunk', full_name='QueryResponse.chunk', index=0,
       number=1, type=9, cpp_type=9, label=1,
@@ -99,30 +97,30 @@ _QUERYRESPONSE = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto2',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=123,
-  serialized_end=153,
+    ],
+    extensions=[
+    ],
+    nested_types=[],
+    enum_types=[
+    ],
+    options=None,
+    is_extendable=False,
+    syntax='proto2',
+    extension_ranges=[],
+    oneofs=[
+    ],
+    serialized_start=123,
+    serialized_end=153,
 )
 
 
 _COMPLETIONREQUEST = _descriptor.Descriptor(
-  name='CompletionRequest',
-  full_name='CompletionRequest',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
+    name='CompletionRequest',
+    full_name='CompletionRequest',
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    fields=[
     _descriptor.FieldDescriptor(
       name='prefix', full_name='CompletionRequest.prefix', index=0,
       number=1, type=9, cpp_type=9, label=1,
@@ -130,30 +128,30 @@ _COMPLETIONREQUEST = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto2',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=155,
-  serialized_end=190,
+    ],
+    extensions=[
+    ],
+    nested_types=[],
+    enum_types=[
+    ],
+    options=None,
+    is_extendable=False,
+    syntax='proto2',
+    extension_ranges=[],
+    oneofs=[
+    ],
+    serialized_start=155,
+    serialized_end=190,
 )
 
 
 _COMPLETIONRESPONSE = _descriptor.Descriptor(
-  name='CompletionResponse',
-  full_name='CompletionResponse',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
+    name='CompletionResponse',
+    full_name='CompletionResponse',
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    fields=[
     _descriptor.FieldDescriptor(
       name='proto_names', full_name='CompletionResponse.proto_names', index=0,
       number=1, type=9, cpp_type=9, label=3,
@@ -161,20 +159,20 @@ _COMPLETIONRESPONSE = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto2',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=192,
-  serialized_end=233,
+    ],
+    extensions=[
+    ],
+    nested_types=[],
+    enum_types=[
+    ],
+    options=None,
+    is_extendable=False,
+    syntax='proto2',
+    extension_ranges=[],
+    oneofs=[
+    ],
+    serialized_start=192,
+    serialized_end=233,
 )
 
 DESCRIPTOR.message_types_by_name['QueryRequest'] = _QUERYREQUEST
@@ -182,34 +180,41 @@ DESCRIPTOR.message_types_by_name['QueryResponse'] = _QUERYRESPONSE
 DESCRIPTOR.message_types_by_name['CompletionRequest'] = _COMPLETIONREQUEST
 DESCRIPTOR.message_types_by_name['CompletionResponse'] = _COMPLETIONRESPONSE
 
-QueryRequest = _reflection.GeneratedProtocolMessageType('QueryRequest', (_message.Message,), dict(
-  DESCRIPTOR = _QUERYREQUEST,
-  __module__ = 'reader_service_pb2'
-  # @@protoc_insertion_point(class_scope:QueryRequest)
-  ))
+QueryRequest = _reflection.GeneratedProtocolMessageType(
+    'QueryRequest',
+    (_message.Message, ),
+    dict(DESCRIPTOR=_QUERYREQUEST,
+         __module__='reader_service_pb2'
+         # @@protoc_insertion_point(class_scope:QueryRequest)
+         ))
 _sym_db.RegisterMessage(QueryRequest)
 
-QueryResponse = _reflection.GeneratedProtocolMessageType('QueryResponse', (_message.Message,), dict(
-  DESCRIPTOR = _QUERYRESPONSE,
-  __module__ = 'reader_service_pb2'
-  # @@protoc_insertion_point(class_scope:QueryResponse)
-  ))
+QueryResponse = _reflection.GeneratedProtocolMessageType(
+    'QueryResponse',
+    (_message.Message, ),
+    dict(DESCRIPTOR=_QUERYRESPONSE,
+         __module__='reader_service_pb2'
+         # @@protoc_insertion_point(class_scope:QueryResponse)
+         ))
 _sym_db.RegisterMessage(QueryResponse)
 
-CompletionRequest = _reflection.GeneratedProtocolMessageType('CompletionRequest', (_message.Message,), dict(
-  DESCRIPTOR = _COMPLETIONREQUEST,
-  __module__ = 'reader_service_pb2'
-  # @@protoc_insertion_point(class_scope:CompletionRequest)
-  ))
+CompletionRequest = _reflection.GeneratedProtocolMessageType(
+    'CompletionRequest',
+    (_message.Message, ),
+    dict(DESCRIPTOR=_COMPLETIONREQUEST,
+         __module__='reader_service_pb2'
+         # @@protoc_insertion_point(class_scope:CompletionRequest)
+         ))
 _sym_db.RegisterMessage(CompletionRequest)
 
-CompletionResponse = _reflection.GeneratedProtocolMessageType('CompletionResponse', (_message.Message,), dict(
-  DESCRIPTOR = _COMPLETIONRESPONSE,
-  __module__ = 'reader_service_pb2'
-  # @@protoc_insertion_point(class_scope:CompletionResponse)
-  ))
+CompletionResponse = _reflection.GeneratedProtocolMessageType(
+    'CompletionResponse',
+    (_message.Message, ),
+    dict(DESCRIPTOR=_COMPLETIONRESPONSE,
+         __module__='reader_service_pb2'
+         # @@protoc_insertion_point(class_scope:CompletionResponse)
+         ))
 _sym_db.RegisterMessage(CompletionResponse)
-
 
 import grpc
 from grpc.beta import implementations as beta_implementations
@@ -219,101 +224,134 @@ from grpc.framework.interfaces.face import utilities as face_utilities
 
 
 class RecordReaderStub(object):
-
-  def __init__(self, channel):
-    """Constructor.
+    def __init__(self, channel):
+        """Constructor.
 
     Args:
       channel: A grpc.Channel.
     """
-    self.Query = channel.unary_stream(
-        '/RecordReader/Query',
-        request_serializer=QueryRequest.SerializeToString,
-        response_deserializer=QueryResponse.FromString,
-        )
-    self.ProtoNames = channel.unary_unary(
-        '/RecordReader/ProtoNames',
-        request_serializer=CompletionRequest.SerializeToString,
-        response_deserializer=CompletionResponse.FromString,
-        )
+        self.Query = channel.unary_stream(
+            '/RecordReader/Query',
+            request_serializer=QueryRequest.SerializeToString,
+            response_deserializer=QueryResponse.FromString, )
+        self.ProtoNames = channel.unary_unary(
+            '/RecordReader/ProtoNames',
+            request_serializer=CompletionRequest.SerializeToString,
+            response_deserializer=CompletionResponse.FromString, )
 
 
 class RecordReaderServicer(object):
+    def Query(self, request, context):
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
 
-  def Query(self, request, context):
-    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-    context.set_details('Method not implemented!')
-    raise NotImplementedError('Method not implemented!')
-
-  def ProtoNames(self, request, context):
-    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-    context.set_details('Method not implemented!')
-    raise NotImplementedError('Method not implemented!')
+    def ProtoNames(self, request, context):
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
 
 
 def add_RecordReaderServicer_to_server(servicer, server):
-  rpc_method_handlers = {
-      'Query': grpc.unary_stream_rpc_method_handler(
-          servicer.Query,
-          request_deserializer=QueryRequest.FromString,
-          response_serializer=QueryResponse.SerializeToString,
-      ),
-      'ProtoNames': grpc.unary_unary_rpc_method_handler(
-          servicer.ProtoNames,
-          request_deserializer=CompletionRequest.FromString,
-          response_serializer=CompletionResponse.SerializeToString,
-      ),
-  }
-  generic_handler = grpc.method_handlers_generic_handler(
-      'RecordReader', rpc_method_handlers)
-  server.add_generic_rpc_handlers((generic_handler,))
+    rpc_method_handlers = {
+        'Query': grpc.unary_stream_rpc_method_handler(
+            servicer.Query,
+            request_deserializer=QueryRequest.FromString,
+            response_serializer=QueryResponse.SerializeToString, ),
+        'ProtoNames': grpc.unary_unary_rpc_method_handler(
+            servicer.ProtoNames,
+            request_deserializer=CompletionRequest.FromString,
+            response_serializer=CompletionResponse.SerializeToString, ),
+    }
+    generic_handler = grpc.method_handlers_generic_handler('RecordReader',
+                                                           rpc_method_handlers)
+    server.add_generic_rpc_handlers((generic_handler, ))
 
 
 class BetaRecordReaderServicer(object):
-  def Query(self, request, context):
-    context.code(beta_interfaces.StatusCode.UNIMPLEMENTED)
-  def ProtoNames(self, request, context):
-    context.code(beta_interfaces.StatusCode.UNIMPLEMENTED)
+    def Query(self, request, context):
+        context.code(beta_interfaces.StatusCode.UNIMPLEMENTED)
+
+    def ProtoNames(self, request, context):
+        context.code(beta_interfaces.StatusCode.UNIMPLEMENTED)
 
 
 class BetaRecordReaderStub(object):
-  def Query(self, request, timeout, metadata=None, with_call=False, protocol_options=None):
-    raise NotImplementedError()
-  def ProtoNames(self, request, timeout, metadata=None, with_call=False, protocol_options=None):
-    raise NotImplementedError()
-  ProtoNames.future = None
+    def Query(self,
+              request,
+              timeout,
+              metadata=None,
+              with_call=False,
+              protocol_options=None):
+        raise NotImplementedError()
+
+    def ProtoNames(self,
+                   request,
+                   timeout,
+                   metadata=None,
+                   with_call=False,
+                   protocol_options=None):
+        raise NotImplementedError()
+
+    ProtoNames.future = None
 
 
-def beta_create_RecordReader_server(servicer, pool=None, pool_size=None, default_timeout=None, maximum_timeout=None):
-  request_deserializers = {
-    ('RecordReader', 'ProtoNames'): CompletionRequest.FromString,
-    ('RecordReader', 'Query'): QueryRequest.FromString,
-  }
-  response_serializers = {
-    ('RecordReader', 'ProtoNames'): CompletionResponse.SerializeToString,
-    ('RecordReader', 'Query'): QueryResponse.SerializeToString,
-  }
-  method_implementations = {
-    ('RecordReader', 'ProtoNames'): face_utilities.unary_unary_inline(servicer.ProtoNames),
-    ('RecordReader', 'Query'): face_utilities.unary_stream_inline(servicer.Query),
-  }
-  server_options = beta_implementations.server_options(request_deserializers=request_deserializers, response_serializers=response_serializers, thread_pool=pool, thread_pool_size=pool_size, default_timeout=default_timeout, maximum_timeout=maximum_timeout)
-  return beta_implementations.server(method_implementations, options=server_options)
+def beta_create_RecordReader_server(servicer,
+                                    pool=None,
+                                    pool_size=None,
+                                    default_timeout=None,
+                                    maximum_timeout=None):
+    request_deserializers = {
+        ('RecordReader', 'ProtoNames'): CompletionRequest.FromString,
+        ('RecordReader', 'Query'): QueryRequest.FromString,
+    }
+    response_serializers = {
+        ('RecordReader', 'ProtoNames'): CompletionResponse.SerializeToString,
+        ('RecordReader', 'Query'): QueryResponse.SerializeToString,
+    }
+    method_implementations = {
+        ('RecordReader', 'ProtoNames'):
+        face_utilities.unary_unary_inline(servicer.ProtoNames),
+        ('RecordReader', 'Query'):
+        face_utilities.unary_stream_inline(servicer.Query),
+    }
+    server_options = beta_implementations.server_options(
+        request_deserializers=request_deserializers,
+        response_serializers=response_serializers,
+        thread_pool=pool,
+        thread_pool_size=pool_size,
+        default_timeout=default_timeout,
+        maximum_timeout=maximum_timeout)
+    return beta_implementations.server(method_implementations,
+                                       options=server_options)
 
 
-def beta_create_RecordReader_stub(channel, host=None, metadata_transformer=None, pool=None, pool_size=None):
-  request_serializers = {
-    ('RecordReader', 'ProtoNames'): CompletionRequest.SerializeToString,
-    ('RecordReader', 'Query'): QueryRequest.SerializeToString,
-  }
-  response_deserializers = {
-    ('RecordReader', 'ProtoNames'): CompletionResponse.FromString,
-    ('RecordReader', 'Query'): QueryResponse.FromString,
-  }
-  cardinalities = {
-    'ProtoNames': cardinality.Cardinality.UNARY_UNARY,
-    'Query': cardinality.Cardinality.UNARY_STREAM,
-  }
-  stub_options = beta_implementations.stub_options(host=host, metadata_transformer=metadata_transformer, request_serializers=request_serializers, response_deserializers=response_deserializers, thread_pool=pool, thread_pool_size=pool_size)
-  return beta_implementations.dynamic_stub(channel, 'RecordReader', cardinalities, options=stub_options)
+def beta_create_RecordReader_stub(channel,
+                                  host=None,
+                                  metadata_transformer=None,
+                                  pool=None,
+                                  pool_size=None):
+    request_serializers = {
+        ('RecordReader', 'ProtoNames'): CompletionRequest.SerializeToString,
+        ('RecordReader', 'Query'): QueryRequest.SerializeToString,
+    }
+    response_deserializers = {
+        ('RecordReader', 'ProtoNames'): CompletionResponse.FromString,
+        ('RecordReader', 'Query'): QueryResponse.FromString,
+    }
+    cardinalities = {
+        'ProtoNames': cardinality.Cardinality.UNARY_UNARY,
+        'Query': cardinality.Cardinality.UNARY_STREAM,
+    }
+    stub_options = beta_implementations.stub_options(
+        host=host,
+        metadata_transformer=metadata_transformer,
+        request_serializers=request_serializers,
+        response_deserializers=response_deserializers,
+        thread_pool=pool,
+        thread_pool_size=pool_size)
+    return beta_implementations.dynamic_stub(channel,
+                                             'RecordReader',
+                                             cardinalities,
+                                             options=stub_options)
 # @@protoc_insertion_point(module_scope)

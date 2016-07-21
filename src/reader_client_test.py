@@ -26,7 +26,7 @@ things {
 
 _SRC_ROOT = os.path.join(CODE_BASE, "src")
 _ROOT = os.path.join(_SRC_ROOT, "example")
-_FILE_PATH = os.path.join(_SRC_ROOT, "example", "foo.tfr")
+_FILE_PATH = os.path.join(_SRC_ROOT, "example", "*.tfr")
 _PROTO = "example.Person"
 _PORT = 8004
 

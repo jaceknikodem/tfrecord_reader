@@ -27,7 +27,7 @@ def main(argv):
     client = reader_client.ReaderClient(FLAGS.host, FLAGS.port)
 
     for chunk in client.query(argv[1], FLAGS.proto, FLAGS.root, FLAGS.select,
-                       FLAGS.limit, FLAGS.timeout):
+                              FLAGS.limit, FLAGS.timeout):
         print chunk
 
 

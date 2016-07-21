@@ -7,7 +7,9 @@ service RecordReader {
 }
 
 message QueryRequest {
+    // A file path of a glob pattern for multiple files.
     optional string file_path = 1;
+
     optional string proto = 2;
     optional string root = 3;
     optional string select = 4;
